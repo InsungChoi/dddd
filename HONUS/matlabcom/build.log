@@ -1,8 +1,0 @@
-Building COM object...
-mcc -M -silentsetup -d 'D:/11.00        개발프로젝트/(050127)HONUS/matlabcom/src' -v -B 'ccom:honus,honusclass,1.0' -g -i   class{mfe} 
-
-  To get started, select <a href="matlab: doc">MATLAB Help</a> or <a href="matlab: demo matlab">Demos</a> from the Help menu.
-
-The -i switch is no longer supported; the include exported interfaces behavior
-is applied to every compilation.
-
