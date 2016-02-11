@@ -1,0 +1,50 @@
+Building COM object...
+mcc -M -silentsetup -d 'C:/HONUS/Matlabresurce/MPE/MPE/src'  -B 'ccom:MPE,MPEclass,1.0'    'C:/HONUS/Matlabresurce/MPE/APFibrous5para.m' 'C:/HONUS/Matlabresurce/MPE/ElasticMeritCalc.m' 'C:/HONUS/Matlabresurce/MPE/MeritCalc.m' 'C:/HONUS/Matlabresurce/MPE/PECalc.m' 'C:/HONUS/Matlabresurce/MPE/PEElasticSolid.m' 'C:/HONUS/Matlabresurce/MPE/PolyFitting.m' 'C:/HONUS/Matlabresurce/MPE/TotalMeritCalc.m'   
+Warning: (PM): Duplicate directory name: C:/HONUS/Matlabresurce/MPE. 
+Warning: (PM): Duplicate directory name: C:/HONUS/Matlabresurce/MPE. 
+Warning: (PM): Duplicate directory name: C:/HONUS/Matlabresurce/MPE. 
+Warning: (PM): Duplicate directory name: C:/HONUS/Matlabresurce/MPE. 
+Warning: (PM): Duplicate directory name: C:/HONUS/Matlabresurce/MPE. 
+Warning: (PM): Duplicate directory name: C:/HONUS/Matlabresurce/MPE. 
+  
+  To get started, type one of these: helpwin, helpdesk, or demo. 
+  For product information, visit www.mathworks.com. 
+  
+mwcomtypes.idl 
+oaidl.idl 
+objidl.idl 
+unknwn.idl 
+wtypes.idl 
+basetsd.h 
+guiddef.h 
+ocidl.idl 
+oleidl.idl 
+servprov.idl 
+urlmon.idl 
+msxml.idl 
+oaidl.acf 
+ocidl.acf 
+mpe_idl.idl 
+oaidl.idl 
+objidl.idl 
+unknwn.idl 
+wtypes.idl 
+basetsd.h 
+guiddef.h 
+ocidl.idl 
+oleidl.idl 
+servprov.idl 
+urlmon.idl 
+msxml.idl 
+mwcomtypes.idl 
+oaidl.acf 
+ocidl.acf 
+
+Creating distrib directory.
+Moving files to distrib.
+Registering new location of DLL.
+mwregsvr C:\HONUS\Matlabresurce\MPE\MPE\distrib\MPE_1_0.dll
+Creating file list for deployment package.
+Creating installation script for deployment.
+
+Standalone DLL build complete.
