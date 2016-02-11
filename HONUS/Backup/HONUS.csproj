@@ -1,0 +1,598 @@
+<VisualStudioProject>
+    <CSHARP
+        ProjectType = "Local"
+        ProductVersion = "7.10.3077"
+        SchemaVersion = "2.0"
+        ProjectGuid = "{1589A9BC-6F47-4BAF-BA78-7A8CB3AFE9C5}"
+    >
+        <Build>
+            <Settings
+                ApplicationIcon = "Img\Honus.ico"
+                AssemblyKeyContainerName = ""
+                AssemblyName = "HONUS"
+                AssemblyOriginatorKeyFile = ""
+                DefaultClientScript = "JScript"
+                DefaultHTMLPageLayout = "Grid"
+                DefaultTargetSchema = "IE50"
+                DelaySign = "false"
+                OutputType = "WinExe"
+                PreBuildEvent = ""
+                PostBuildEvent = ""
+                RootNamespace = "HONUS"
+                RunPostBuildEvent = "OnBuildSuccess"
+                StartupObject = ""
+            >
+                <Config
+                    Name = "Debug"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "DEBUG;TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "true"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "false"
+                    OutputPath = "bin\Debug\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+                <Config
+                    Name = "Release"
+                    AllowUnsafeBlocks = "false"
+                    BaseAddress = "285212672"
+                    CheckForOverflowUnderflow = "false"
+                    ConfigurationOverrideFile = ""
+                    DefineConstants = "TRACE"
+                    DocumentationFile = ""
+                    DebugSymbols = "false"
+                    FileAlignment = "4096"
+                    IncrementalBuild = "false"
+                    NoStdLib = "false"
+                    NoWarn = ""
+                    Optimize = "true"
+                    OutputPath = "bin\Release\"
+                    RegisterForComInterop = "false"
+                    RemoveIntegerChecks = "false"
+                    TreatWarningsAsErrors = "false"
+                    WarningLevel = "4"
+                />
+            </Settings>
+            <References>
+                <Reference
+                    Name = "System"
+                    AssemblyName = "System"
+                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.dll"
+                />
+                <Reference
+                    Name = "System.Data"
+                    AssemblyName = "System.Data"
+                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Data.dll"
+                />
+                <Reference
+                    Name = "System.Drawing"
+                    AssemblyName = "System.Drawing"
+                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Drawing.dll"
+                />
+                <Reference
+                    Name = "System.Windows.Forms"
+                    AssemblyName = "System.Windows.Forms"
+                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Windows.Forms.dll"
+                />
+                <Reference
+                    Name = "System.XML"
+                    AssemblyName = "System.Xml"
+                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
+                />
+                <Reference
+                    Name = "System.Design"
+                    AssemblyName = "System.Design"
+                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Design.dll"
+                />
+                <Reference
+                    Name = "System.Web"
+                    AssemblyName = "System.Web"
+                    HintPath = "..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
+                />
+                <Reference
+                    Name = "MWComUtil"
+                    Guid = "{A5761F91-D03B-4BF6-8BEA-0EE0F49EB9F9}"
+                    VersionMajor = "7"
+                    VersionMinor = "1"
+                    Lcid = "0"
+                    WrapperTool = "tlbimp"
+                />
+                <Reference
+                    Name = "stdole"
+                    Guid = "{00020430-0000-0000-C000-000000000046}"
+                    VersionMajor = "2"
+                    VersionMinor = "0"
+                    Lcid = "0"
+                    WrapperTool = "primary"
+                />
+                <Reference
+                    Name = "VBIDE"
+                    Guid = "{0002E157-0000-0000-C000-000000000046}"
+                    VersionMajor = "5"
+                    VersionMinor = "3"
+                    Lcid = "0"
+                    WrapperTool = "tlbimp"
+                />
+                <Reference
+                    Name = "Excel"
+                    Guid = "{00020813-0000-0000-C000-000000000046}"
+                    VersionMajor = "1"
+                    VersionMinor = "5"
+                    Lcid = "0"
+                    WrapperTool = "tlbimp"
+                />
+                <Reference
+                    Name = "Microsoft.Office.Core"
+                    Guid = "{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}"
+                    VersionMajor = "2"
+                    VersionMinor = "3"
+                    Lcid = "0"
+                    WrapperTool = "tlbimp"
+                />
+                <Reference
+                    Name = "MPE"
+                    Guid = "{4C6FAE67-D239-4910-8BA7-DC286528C220}"
+                    VersionMajor = "1"
+                    VersionMinor = "0"
+                    Lcid = "0"
+                    WrapperTool = "tlbimp"
+                />
+                <Reference
+                    Name = "TM"
+                    Guid = "{40E7FF4F-65EE-443D-90B4-17B2C6683DA2}"
+                    VersionMajor = "1"
+                    VersionMinor = "0"
+                    Lcid = "0"
+                    WrapperTool = "tlbimp"
+                />
+            </References>
+        </Build>
+        <Files>
+            <Include>
+                <File
+                    RelPath = "app.config"
+                    BuildAction = "None"
+                />
+                <File
+                    RelPath = "App.ico"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "AssemblyInfo.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "frmCalc.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "frmCalc.resx"
+                    DependentUpon = "frmCalc.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "HONUS_Main.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "HONUS_Main.resx"
+                    DependentUpon = "HONUS_Main.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "licenses.licx"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MainPopup.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MainPopup.resx"
+                    DependentUpon = "MainPopup.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "Common_Class\ClsData.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Common_Class\Common_DataBase.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Common_Class\MPALayer.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Common_Class\MPAMaterial.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Common_Class\MPEClass.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Common_Class\MPEData.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "Common_Class\SAClass.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataPlotter\DataPlotter.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataPlotter\DataPlotter.resx"
+                    DependentUpon = "DataPlotter.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "DataPlotter\dgInputValue.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "DataPlotter\dgInputValue.resx"
+                    DependentUpon = "dgInputValue.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Component\MD_DB.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\AbsorptionCoefficient_Find.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\AbsorptionCoefficient_Find.resx"
+                    DependentUpon = "AbsorptionCoefficient_Find.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\dgMultiLayer_Find.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\dgMultiLayer_Find.resx"
+                    DependentUpon = "dgMultiLayer_Find.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\dgMultyGraph.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\dgMultyGraph.resx"
+                    DependentUpon = "dgMultyGraph.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\dgParameters_Find.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\dgParameters_Find.resx"
+                    DependentUpon = "dgParameters_Find.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\dgPassWord.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\dgPassWord.resx"
+                    DependentUpon = "dgPassWord.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\dgSingleMaterial_View.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\dgSingleMaterial_View.resx"
+                    DependentUpon = "dgSingleMaterial_View.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\frmMD_Main.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\frmMD_Main.resx"
+                    DependentUpon = "frmMD_Main.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\frmMD_Main2.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\frmMD_Main2.resx"
+                    DependentUpon = "frmMD_Main2.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\MultiMaterial_View.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\MultiMaterial_View.resx"
+                    DependentUpon = "MultiMaterial_View.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\OneThirdOctaveFind.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\Form\OneThirdOctaveFind.resx"
+                    DependentUpon = "OneThirdOctaveFind.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\UserControl\ucDatainformation.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\UserControl\ucDatainformation.resx"
+                    DependentUpon = "ucDatainformation.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\UserControl\ucMaterialDatabase_Addition.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\UserControl\ucMaterialDatabase_Addition.resx"
+                    DependentUpon = "ucMaterialDatabase_Addition.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\UserControl\ucMaterialDatabase_Search.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\UserControl\ucMaterialDatabase_Search.resx"
+                    DependentUpon = "ucMaterialDatabase_Search.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\UserControl\ucMaterialDatabase_Search2.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\UserControl\ucMaterialDatabase_Search2.resx"
+                    DependentUpon = "ucMaterialDatabase_Search2.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialDatabase\UserControl\ucSearchingCondition.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialDatabase\UserControl\ucSearchingCondition.resx"
+                    DependentUpon = "ucSearchingCondition.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialPerformanceAnalysis\Component\MPA_DB.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialPerformanceAnalysis\Form\dgMultiLayer.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialPerformanceAnalysis\Form\dgMultiLayer.resx"
+                    DependentUpon = "dgMultiLayer.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialPerformanceAnalysis\Form\dgName.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialPerformanceAnalysis\Form\dgName.resx"
+                    DependentUpon = "dgName.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialPerformanceAnalysis\Form\dgSingleLayer.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialPerformanceAnalysis\Form\dgSingleLayer.resx"
+                    DependentUpon = "dgSingleLayer.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialPerformanceAnalysis\Form\frmMPA_Main.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialPerformanceAnalysis\Form\frmMPA_Main.resx"
+                    DependentUpon = "frmMPA_Main.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialPerformanceAnalysis\UserControl\ucAnalysisSetup.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialPerformanceAnalysis\UserControl\ucAnalysisSetup.resx"
+                    DependentUpon = "ucAnalysisSetup.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialPerformanceAnalysis\UserControl\ucMaterialPerformanceAnalysis.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialPerformanceAnalysis\UserControl\ucMaterialPerformanceAnalysis.resx"
+                    DependentUpon = "ucMaterialPerformanceAnalysis.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialPropertiesEstimation\Component\MPE_DB.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialPropertiesEstimation\Form\dgDataBaseLoad.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialPropertiesEstimation\Form\dgDataBaseLoad.resx"
+                    DependentUpon = "dgDataBaseLoad.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialPropertiesEstimation\Form\dgEstimation.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialPropertiesEstimation\Form\dgEstimation.resx"
+                    DependentUpon = "dgEstimation.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialPropertiesEstimation\Form\frmMPE_Main.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialPropertiesEstimation\Form\frmMPE_Main.resx"
+                    DependentUpon = "frmMPE_Main.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialPropertiesEstimation\UserControl\ucEstimationSetup.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialPropertiesEstimation\UserControl\ucEstimationSetup.resx"
+                    DependentUpon = "ucEstimationSetup.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "MaterialPropertiesEstimation\UserControl\ucMaterialPropertiesEstimation.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "MaterialPropertiesEstimation\UserControl\ucMaterialPropertiesEstimation.resx"
+                    DependentUpon = "ucMaterialPropertiesEstimation.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "SensitivityAnalysis\Component\SA_DB.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SensitivityAnalysis\Form\dgAcousticPerformance.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SensitivityAnalysis\Form\dgAcousticPerformance.resx"
+                    DependentUpon = "dgAcousticPerformance.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "SensitivityAnalysis\Form\dgMaterial.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SensitivityAnalysis\Form\dgMaterial.resx"
+                    DependentUpon = "dgMaterial.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "SensitivityAnalysis\Form\frmSA_Main.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SensitivityAnalysis\Form\frmSA_Main.resx"
+                    DependentUpon = "frmSA_Main.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "SensitivityAnalysis\UserControl\ucAnalysisSetup.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SensitivityAnalysis\UserControl\ucAnalysisSetup.resx"
+                    DependentUpon = "ucAnalysisSetup.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
+                    RelPath = "SensitivityAnalysis\UserControl\ucSensitivityAnalysis.cs"
+                    SubType = "UserControl"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "SensitivityAnalysis\UserControl\ucSensitivityAnalysis.resx"
+                    DependentUpon = "ucSensitivityAnalysis.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+            </Include>
+        </Files>
+    </CSHARP>
+</VisualStudioProject>
+

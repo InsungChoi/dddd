@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataPlotter", "DataPlotter.csproj", "{021DFD32-B4E5-4CC9-AA34-709BA55EAC07}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataPlotterTest", "..\DataPlotterTest\DataPlotterTest.csproj", "{D5BD843D-8727-4B8D-8895-A560C593026F}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{021DFD32-B4E5-4CC9-AA34-709BA55EAC07}.Debug.ActiveCfg = Debug|.NET
+		{021DFD32-B4E5-4CC9-AA34-709BA55EAC07}.Debug.Build.0 = Debug|.NET
+		{021DFD32-B4E5-4CC9-AA34-709BA55EAC07}.Release.ActiveCfg = Release|.NET
+		{021DFD32-B4E5-4CC9-AA34-709BA55EAC07}.Release.Build.0 = Release|.NET
+		{D5BD843D-8727-4B8D-8895-A560C593026F}.Debug.ActiveCfg = Debug|.NET
+		{D5BD843D-8727-4B8D-8895-A560C593026F}.Debug.Build.0 = Debug|.NET
+		{D5BD843D-8727-4B8D-8895-A560C593026F}.Release.ActiveCfg = Release|.NET
+		{D5BD843D-8727-4B8D-8895-A560C593026F}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
