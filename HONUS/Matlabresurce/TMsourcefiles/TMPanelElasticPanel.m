@@ -9,7 +9,7 @@ function TMPanelElasticPanel(freq,theta,hp1, Densityp1, Ep1, PRatiop1, L, BulkDe
 
 % Definition of global variables
 global TM;
-global c Densityo HeatRatio Npr ItaAir P0
+global c Densityo HeatRatio Npr ItaAir
 
 E1=Em*(1+j*LFactor);	            % elastic Young's modulus of solid frame
 E0=Densityo*c^2;				    % elastic constant of fluid

@@ -7,7 +7,7 @@
 function TMPanel(freq,theta,L, Density, Em, PRatio)
 
 global TM;
-global c Densityo HeatRatio Npr ItaAir P0
+global c 
 
 omega = 2*pi*freq;
 k = omega/c;

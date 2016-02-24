@@ -1,4 +1,4 @@
-function ElasticMeritCalc(freq, MeasuredAbsorption, BulkDensity,FlowRes,SFactor,h,c1,c2,Em, LFactor,PRatio,L)
+function ElasticMeritCalc(freq, MeasuredAbsorption, FlowRes,SFactor,h,c1,c2,Em, LFactor,PRatio,L)
     global c
     global Densityo
     global Npr
@@ -6,7 +6,7 @@ function ElasticMeritCalc(freq, MeasuredAbsorption, BulkDensity,FlowRes,SFactor,
     global DensityA
     global HeatRatio
     global Absorption
-    %global SurfaceImpedance
+    
     global RealSurfaceImpedance
     global ImagSurfaceImpedance
     global Merit

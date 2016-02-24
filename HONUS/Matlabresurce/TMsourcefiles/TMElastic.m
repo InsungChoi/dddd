@@ -7,7 +7,7 @@
 function TMElastic(freq,theta,L,BulkDensity,FlowRes,SFactor,h,VCL,TCL,Em,LFactor,PRatio)
 
 global TM;
-global c Densityo HeatRatio Npr ItaAir P0
+global c Densityo HeatRatio Npr ItaAir
 
 %Constant and variable definition
 omega = 2*pi*freq;

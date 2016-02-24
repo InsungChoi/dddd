@@ -1,12 +1,6 @@
-function PEElasticSolid(L, BulkDensity, h, ResonanceFrequency)
+function PEElasticSolid(L, BulkDensity, ResonanceFrequency)
 
-global c
-global Densityo
-global Npr
-global Density1
-global DensityA
-global HeatRatio
-global Merit
+
 global SolidPara
 
 Density1=BulkDensity;

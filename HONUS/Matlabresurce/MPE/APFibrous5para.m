@@ -1,17 +1,17 @@
-function APFibrous5para(L, BulkDensity,FlowRes, SFactor, h, c1, c2, fre)
+function APFibrous5para(L, FlowRes, SFactor, h, c1, c2, fre)
 % PEFibrous5para(L, BulkDensity,FlowRes, SFactor, h, c1, c2, fre, RowSizeOfPara, MeasuredAbsorptionMat)
     
     global ItaAir 
     global P0 
-    global Densityo 
+    %  global Densityo 
     global Z0 
     global MAbsorption
     global B 
-    global c
+    %global c
     global Densityo
     global Npr
     global Density1
-    global DensityA
+    %global DensityA
     global HeatRatio
     global APFibrous
     global Merit

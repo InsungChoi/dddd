@@ -7,7 +7,7 @@
 function TMperMemb(freq,theta, L, Density, FlowRes)
 
 global TM;
-global c Densityo HeatRatio Npr ItaAir P0
+global c 
 %Constant and variable definition
 omega = 2*pi*freq;
 k = omega/c;

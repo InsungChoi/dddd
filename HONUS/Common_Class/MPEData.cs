@@ -1176,7 +1176,7 @@ namespace HONUS.Common_Class
 			for (int ff=0;ff<SizeOfPEFre;ff++)
 			{
 				fre=(ff+1)*200;
-				MeritCalcClass.apfibrous5para(Thickness, BulkDensity, FResistMat, tSFactor, tPorosity, tc1, tc2,fre);
+				MeritCalcClass.apfibrous5para(Thickness, FResistMat, tSFactor, tPorosity, tc1, tc2,fre);
 				APDAbsorption=(double[,])MeritCalcClass.APFibrous;
 				
 				for (int i=0;i<RowSizeOfPara;i++)
@@ -1254,7 +1254,7 @@ namespace HONUS.Common_Class
 			for (int ff=0;ff<SizeOfPEFre;ff++)
 			{
 				fre=(ff+FreRegion[0])*200;
-				MeritCalcClass.apfibrous5para(Thickness, BulkDensity, tFResist, SFactorMat, PorosityMat, tc1, tc2,fre);
+				MeritCalcClass.apfibrous5para(Thickness, tFResist, SFactorMat, PorosityMat, tc1, tc2,fre);
 				APDAbsorption=(double[,])MeritCalcClass.APFibrous;
 				for (int i=0;i<RowSizeOfPara;i++)
 				{
@@ -1333,7 +1333,7 @@ namespace HONUS.Common_Class
 			{
 				fre=(ff+1)*200;
 
-				MeritCalcClass.apfibrous5para(Thickness, BulkDensity, tFResist, tSFactor, tPorosity, c1Mat, c2Mat,fre);
+				MeritCalcClass.apfibrous5para(Thickness, tFResist, tSFactor, tPorosity, c1Mat, c2Mat,fre);
 				APDAbsorption=(double[,])MeritCalcClass.APFibrous;
 
 				for (int i=0;i<RowSizeOfPara;i++)
@@ -1529,7 +1529,7 @@ namespace HONUS.Common_Class
 			{
 				freq=Frequency.GetData(ff);
 				MeritCalcClass.elasticmeritcalc(freq, (double)MAbsorption.GetData(ff), 
-					BulkDensity, FResist, SFactor, Porosity, c1, c2, Ymodulus, LossFactor, PoissonR, Thickness);
+					FResist, SFactor, Porosity, c1, c2, Ymodulus, LossFactor, PoissonR, Thickness);
 
 				CAbsorption.AddData((double)MeritCalcClass.Absorption);
 				CRealSurfaceImpedance.AddData((double)MeritCalcClass.RealSurfaceImpedance);
@@ -1576,7 +1576,7 @@ namespace HONUS.Common_Class
 			}
 			ResonFreIndex=(int)Math.Round(ResonanceFrequency/Resolution);
 
-			MeritCalcClass.peelasticsolid(Thickness, BulkDensity, Porosity, ResonanceFrequency);
+			MeritCalcClass.peelasticsolid(Thickness, BulkDensity, ResonanceFrequency);
 			OptSolidPara=(double[,])MeritCalcClass.SolidPara;
 			
 			Ymodulus=(double)OptSolidPara[1,1];
@@ -1590,7 +1590,7 @@ namespace HONUS.Common_Class
 				freq=ResonFreIndex*Resolution;
 							
 				MeritCalcClass.elasticmeritcalc(freq, (double)MAbsorption.GetData(ResonFreIndex), 
-				BulkDensity, FResist, SFactor, Porosity, c1, c2, Ymodulus, tLossFactor, PoissonR, Thickness);
+				FResist, SFactor, Porosity, c1, c2, Ymodulus, tLossFactor, PoissonR, Thickness);
 				
 				Merit=(double)MeritCalcClass.Merit;
 						

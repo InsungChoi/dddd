@@ -7,8 +7,7 @@ function MeritCalc(freq, MAbsorption, BulkDensity,FlowRes, SFactor, h, c1, c2, L
     global P0
     global Densityo
     global Z0
-    global B
-    
+    global B 
     global Absorption
     global RealSurfaceImpedance;
     global ImagSurfaceImpedance;
