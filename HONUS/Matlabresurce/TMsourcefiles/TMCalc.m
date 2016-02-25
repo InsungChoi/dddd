@@ -1,7 +1,7 @@
 function TMCalc(freq, theta, TotalThickness)
 % elseif Travl1==7, T1=TMRigid(L1, Density1,FlowRes1,SFactor1,h1,VCL1,TCL1); thick1=L1; 
-global TM;
-global c Densityo HeatRatio Npr ItaAir P0
+
+global c Densityo 
 global Result;
 global Rigid Anechoic TL;
 
@@ -17,5 +17,5 @@ R2=(Result(1,1)+cos(theta)/Densityo/c*Result(1,2)-Densityo*c*Result(2,1)/cos(the
     +cos(theta)/Densityo/c*Result(1,2)+Densityo*c*Result(2,1)/cos(theta)+Result(2,2));
 Anechoic=1-abs(R2)^2;
 
-T=2*exp(j*ky*TotalThickness)/(Result(1,1)+cos(theta)/Densityo/c*Result(1,2)+Densityo*c/cos(theta)*Result(2,1)+Result(2,2));
+T=2*exp(1i*ky*TotalThickness)/(Result(1,1)+cos(theta)/Densityo/c*Result(1,2)+Densityo*c/cos(theta)*Result(2,1)+Result(2,2));
 TL=abs(T)^2;

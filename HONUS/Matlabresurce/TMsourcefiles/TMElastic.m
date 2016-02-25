@@ -18,15 +18,15 @@ ky = k*cos(theta);
 c1=1/VCL*sqrt(8*SFactor*ItaAir/(h*FlowRes));
 c2=1/TCL*sqrt(8*SFactor*ItaAir/(h*FlowRes));
                                        
-s1 = c1*sqrt(8*omega*SFactor*Densityo/(h*FlowRes))*sqrt(-j);
-s2 = 1/c2*sqrt(Npr)*sqrt(8*omega*SFactor*Densityo/(h*FlowRes))*sqrt(-j);
+s1 = c1*sqrt(8*omega*SFactor*Densityo/(h*FlowRes))*sqrt(-1i);
+s2 = 1/c2*sqrt(Npr)*sqrt(8*omega*SFactor*Densityo/(h*FlowRes))*sqrt(-1i);
 
 Gc1 = -(s1*besselj(1,s1))/(besselj(0,s1))/(1-2*besselj(1,s1)/(s1*besselj(0,s1)));
 
 b = FlowRes*h^2*Gc1/4;
         
 E0=Densityo*(c^2);
-E1=Em*(1+j*LFactor);
+E1=Em*(1+1i*LFactor);
 E2=E0/(1+((2*(HeatRatio-1)/s2)*besselj(1,s2)/besselj(0,s2)));
     
 A= PRatio*E1/(1+PRatio)/(1-2*PRatio);               % Lame constant
@@ -35,9 +35,9 @@ N = E1/2/(1+PRatio);                                % Shear modulus
 Density1=BulkDensity;
 Density2=h*Densityo;
 DensityA=Density2*(SFactor-1);                      % mass coupling factor
-Density11s=Density1+DensityA+b/(j*omega);
-Density12s=-DensityA-b/(j*omega);
-Density22s=Density2+DensityA+b/(j*omega);
+Density11s=Density1+DensityA+b/(1i*omega);
+Density12s=-DensityA-b/(1i*omega);
+Density22s=Density2+DensityA+b/(1i*omega);
 g = -Density12s/Density22s;
     
 P = A+2*N;
@@ -60,26 +60,26 @@ b2 = a1-a2*k2^2;
 
 %Transfer Matrix for the Porous Layer
 
-AM(1,1)=j*kx/k1^2;
-AM(1,2)=j*kx/k1^2;
-AM(1,3)=j*kx/k2^2;
-AM(1,4)=j*kx/k2^2;
-AM(1,5)=-j*kty/kt^2;
-AM(1,6)=j*kty/kt^2;
+AM(1,1)=1i*kx/k1^2;
+AM(1,2)=1i*kx/k1^2;
+AM(1,3)=1i*kx/k2^2;
+AM(1,4)=1i*kx/k2^2;
+AM(1,5)=-1i*kty/kt^2;
+AM(1,6)=1i*kty/kt^2;
 
-AM(2,1)=j*k1y/k1^2;
-AM(2,2)=-j*k1y/k1^2;
-AM(2,3)=j*k2y/k2^2;
-AM(2,4)=-j*k2y/k2^2;
-AM(2,5)=j*kx/kt^2;
-AM(2,6)=j*kx/kt^2;
+AM(2,1)=1i*k1y/k1^2;
+AM(2,2)=-1i*k1y/k1^2;
+AM(2,3)=1i*k2y/k2^2;
+AM(2,4)=-1i*k2y/k2^2;
+AM(2,5)=1i*kx/kt^2;
+AM(2,6)=1i*kx/kt^2;
 
-AM(3,1)=j*b1*k1y/k1^2;
-AM(3,2)=-j*b1*k1y/k1^2;
-AM(3,3)=j*b2*k2y/k2^2;
-AM(3,4)=-j*b2*k2y/k2^2;
-AM(3,5)=j*g*kx/kt^2;
-AM(3,6)=j*g*kx/kt^2;
+AM(3,1)=1i*b1*k1y/k1^2;
+AM(3,2)=-1i*b1*k1y/k1^2;
+AM(3,3)=1i*b2*k2y/k2^2;
+AM(3,4)=-1i*b2*k2y/k2^2;
+AM(3,5)=1i*g*kx/kt^2;
+AM(3,6)=1i*g*kx/kt^2;
 
 AM(4,1)=2*N*k1y^2/k1^2+A+b1*Q;
 AM(4,2)=2*N*k1y^2/k1^2+A+b1*Q;
@@ -102,47 +102,47 @@ AM(6,4)=-2*N*kx*k2y/k2^2;
 AM(6,5)=N*(kx^2-kty^2)/kt^2;
 AM(6,6)=N*(kx^2-kty^2)/kt^2;
 
-BM(1,1)=j*kx*exp(-j*k1y*L)/k1^2;
-BM(1,2)=j*kx*exp(j*k1y*L)/k1^2;
-BM(1,3)=j*kx*exp(-j*k2y*L)/k2^2;
-BM(1,4)=j*kx*exp(j*k2y*L)/k2^2;
-BM(1,5)=-j*kty*exp(-j*kty*L)/kt^2;
-BM(1,6)=j*kty*exp(j*kty*L)/kt^2;
+BM(1,1)=1i*kx*exp(-1i*k1y*L)/k1^2;
+BM(1,2)=1i*kx*exp(1i*k1y*L)/k1^2;
+BM(1,3)=1i*kx*exp(-1i*k2y*L)/k2^2;
+BM(1,4)=1i*kx*exp(1i*k2y*L)/k2^2;
+BM(1,5)=-1i*kty*exp(-1i*kty*L)/kt^2;
+BM(1,6)=1i*kty*exp(1i*kty*L)/kt^2;
 
-BM(2,1)=j*k1y*exp(-j*k1y*L)/k1^2;
-BM(2,2)=-j*k1y*exp(j*k1y*L)/k1^2;
-BM(2,3)=j*k2y*exp(-j*k2y*L)/k2^2;
-BM(2,4)=-j*k2y*exp(j*k2y*L)/k2^2;
-BM(2,5)=j*kx*exp(-j*kty*L)/kt^2;
-BM(2,6)=j*kx*exp(j*kty*L)/kt^2;
+BM(2,1)=1i*k1y*exp(-1i*k1y*L)/k1^2;
+BM(2,2)=-1i*k1y*exp(1i*k1y*L)/k1^2;
+BM(2,3)=1i*k2y*exp(-1i*k2y*L)/k2^2;
+BM(2,4)=-1i*k2y*exp(1i*k2y*L)/k2^2;
+BM(2,5)=1i*kx*exp(-1i*kty*L)/kt^2;
+BM(2,6)=1i*kx*exp(1i*kty*L)/kt^2;
 
-BM(3,1)=j*b1*k1y*exp(-j*k1y*L)/k1^2;
-BM(3,2)=-j*b1*k1y*exp(j*k1y*L)/k1^2;
-BM(3,3)=j*b2*k2y*exp(-j*k2y*L)/k2^2;
-BM(3,4)=-j*b2*k2y*exp(j*k2y*L)/k2^2;
-BM(3,5)=j*g*kx*exp(-j*kty*L)/kt^2;
-BM(3,6)=j*g*kx*exp(j*kty*L)/kt^2;
+BM(3,1)=1i*b1*k1y*exp(-1i*k1y*L)/k1^2;
+BM(3,2)=-1i*b1*k1y*exp(1i*k1y*L)/k1^2;
+BM(3,3)=1i*b2*k2y*exp(-1i*k2y*L)/k2^2;
+BM(3,4)=-1i*b2*k2y*exp(1i*k2y*L)/k2^2;
+BM(3,5)=1i*g*kx*exp(-1i*kty*L)/kt^2;
+BM(3,6)=1i*g*kx*exp(1i*kty*L)/kt^2;
 
-BM(4,1)=(2*N*k1y^2/k1^2+A+b1*Q)*exp(-j*k1y*L);
-BM(4,2)=(2*N*k1y^2/k1^2+A+b1*Q)*exp(j*k1y*L);
-BM(4,3)=(2*N*k2y^2/k2^2+A+b2*Q)*exp(-j*k2y*L);
-BM(4,4)=(2*N*k2y^2/k2^2+A+b2*Q)*exp(j*k2y*L);
-BM(4,5)=2*N*kx*kty/kt^2*exp(-j*kty*L);
-BM(4,6)=-2*N*kx*kty/kt^2*exp(j*kty*L);
+BM(4,1)=(2*N*k1y^2/k1^2+A+b1*Q)*exp(-1i*k1y*L);
+BM(4,2)=(2*N*k1y^2/k1^2+A+b1*Q)*exp(1i*k1y*L);
+BM(4,3)=(2*N*k2y^2/k2^2+A+b2*Q)*exp(-1i*k2y*L);
+BM(4,4)=(2*N*k2y^2/k2^2+A+b2*Q)*exp(1i*k2y*L);
+BM(4,5)=2*N*kx*kty/kt^2*exp(-1i*kty*L);
+BM(4,6)=-2*N*kx*kty/kt^2*exp(1i*kty*L);
 
-BM(5,1)=(Q+b1*R)*exp(-j*k1y*L);
-BM(5,2)=(Q+b1*R)*exp(j*k1y*L);
-BM(5,3)=(Q+b2*R)*exp(-j*k2y*L);
-BM(5,4)=(Q+b2*R)*exp(j*k2y*L);
+BM(5,1)=(Q+b1*R)*exp(-1i*k1y*L);
+BM(5,2)=(Q+b1*R)*exp(1i*k1y*L);
+BM(5,3)=(Q+b2*R)*exp(-1i*k2y*L);
+BM(5,4)=(Q+b2*R)*exp(1i*k2y*L);
 BM(5,5)=0;
 BM(5,6)=0;
 
-BM(6,1)=2*N*kx*k1y/k1^2*exp(-j*k1y*L);
-BM(6,2)=-2*N*kx*k1y/k1^2*exp(j*k1y*L);
-BM(6,3)=2*N*kx*k2y/k2^2*exp(-j*k2y*L);
-BM(6,4)=-2*N*kx*k2y/k2^2*exp(j*k2y*L);
-BM(6,5)=N*(kx^2-kty^2)/kt^2*exp(-j*kty*L);
-BM(6,6)=N*(kx^2-kty^2)/kt^2*exp(j*kty*L);
+BM(6,1)=2*N*kx*k1y/k1^2*exp(-1i*k1y*L);
+BM(6,2)=-2*N*kx*k1y/k1^2*exp(1i*k1y*L);
+BM(6,3)=2*N*kx*k2y/k2^2*exp(-1i*k2y*L);
+BM(6,4)=-2*N*kx*k2y/k2^2*exp(1i*k2y*L);
+BM(6,5)=N*(kx^2-kty^2)/kt^2*exp(-1i*kty*L);
+BM(6,6)=N*(kx^2-kty^2)/kt^2*exp(1i*kty*L);
 
 CM=AM*inv(BM);
 
@@ -168,10 +168,10 @@ end
 
 Q1=-(h*DM(3,1)-(1-h)*DM(4,1))/(h*DM(3,2)-(1-h)*DM(4,2));
 Q2=(h*(1-h)*(DM(4,4)-DM(3,3))+(1-h)^2*DM(4,3)-h^2*DM(3,4))/((1-h)*DM(4,2)-h*DM(3,2));
-Q3=j*omega*((1-h)*(DM(1,1)+Q1*DM(1,2))+h*(DM(2,1)+Q1*DM(2,2)));
-Q4=j*omega*((1-h)*(Q2*DM(1,2)-(1-h)*DM(1,3)-h*DM(1,4))+h*(Q2*DM(2,2)-(1-h)*DM(2,3)-h*DM(2,4)));
+Q3=1i*omega*((1-h)*(DM(1,1)+Q1*DM(1,2))+h*(DM(2,1)+Q1*DM(2,2)));
+Q4=1i*omega*((1-h)*(Q2*DM(1,2)-(1-h)*DM(1,3)-h*DM(1,4))+h*(Q2*DM(2,2)-(1-h)*DM(2,3)-h*DM(2,4)));
 
 TM(1,1)=DM(4,4)+(1-h)/h*DM(4,3)+(Q1/(1-h+h*Q1)-1/h)*Q2*DM(4,2)+(Q2/(1-h+h*Q1))*DM(4,1);
-TM(1,2)=-(DM(4,1)+Q1*DM(4,2))/(j*omega*h*(1-h+h*Q1));
+TM(1,2)=-(DM(4,1)+Q1*DM(4,2))/(1i*omega*h*(1-h+h*Q1));
 TM(2,1)=Q4-h*Q2*Q3/(1-h+h*Q1);
-TM(2,2)=Q3/(j*omega*(1-h+h*Q1));
+TM(2,2)=Q3/(1i*omega*(1-h+h*Q1));

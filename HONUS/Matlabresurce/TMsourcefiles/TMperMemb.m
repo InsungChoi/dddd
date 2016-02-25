@@ -16,7 +16,7 @@ ky = k*cos(theta);
 
 ms=Density*L;
 
-Zmp=j*omega*ms;
+Zmp=1i*omega*ms;
 
 Zm=FlowRes*Zmp/(FlowRes+Zmp);
 
