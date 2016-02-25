@@ -4,7 +4,6 @@ function APFibrous5para(L, FlowRes, SFactor, h, c1, c2, fre)
     global ItaAir 
     global P0 
     global Z0 
-
     global B 
     global Densityo
     global Npr
