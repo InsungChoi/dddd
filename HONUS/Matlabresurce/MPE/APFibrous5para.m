@@ -11,11 +11,6 @@ function APFibrous5para(L, FlowRes, SFactor, h, c1, c2, fre)
     global HeatRatio
     global APFibrous
 
-    
-    
-    
-    
-    
     omega=2*pi.*fre;
            
     VCL=1./c1*sqrt(8.*SFactor.*ItaAir./(h.*FlowRes));
