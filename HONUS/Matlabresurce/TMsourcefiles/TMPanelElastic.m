@@ -4,17 +4,16 @@
 %                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function TMPanelElastic(freq,theta,hp, Densityp, Ep, PRatiop, L, BulkDensity, FlowRes, SFactor, h, VCL, TCL, Em, PRatio, LFactor)
+function TM = TMPanelElastic(BulkDensity,c,Densityo,Densityp,Em,Ep,FlowRes,freq,h,HeatRatio,hp,ItaAir,L,LFactor,Npr,PRatio,PRatiop,SFactor,TCL,theta,VCL)
 % This is a function program to define the transfer matrix for panel-foam layer
 
 % Definition of global variables
-global TM;
-global c Densityo HeatRatio Npr ItaAir 
+TM = eye(2);
 			    	    % Prandtl number
 E1=Em*(1+1i*LFactor);	            % elastic Young's modulus of solid frame
 E0=Densityo*c^2;				    % elastic constant of fluid
 Density2=h*Densityo;				% density of fluid phase
-Densitya=Density2*(SFactor-1);	    % mass coupling factor
+DensityA=Density2*(SFactor-1);	    % mass coupling factor
 d=L;         						% thickness of panle-foam layer
 
 %Constant and variable definition
@@ -33,16 +32,13 @@ Gc1 = -(s1*besselj(1,s1))/(besselj(0,s1))/(1-2*besselj(1,s1)/(s1*besselj(0,s1)))
 
 b = FlowRes*h^2*Gc1/4;
         
-E0=Densityo*(c^2);
-E1=Em*(1+1i*LFactor);
+
 E2=E0/(1+((2*(HeatRatio-1)/s2)*besselj(1,s2)/besselj(0,s2)));
     
 A= PRatio*E1/(1+PRatio)/(1-2*PRatio);               % Lame constant
 N = E1/2/(1+PRatio);                                % Shear modulus
 
 Density1=BulkDensity;
-Density2=h*Densityo;
-DensityA=Density2*(SFactor-1);                      % mass coupling factor
 Density11s=Density1+DensityA+b/(1i*omega);
 Density12s=-DensityA-b/(1i*omega);
 Density22s=Density2+DensityA+b/(1i*omega);

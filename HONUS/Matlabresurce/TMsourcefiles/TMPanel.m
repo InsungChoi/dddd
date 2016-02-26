@@ -4,10 +4,9 @@
 %                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function TMPanel(freq,theta,L, Density, Em, PRatio)
+function TM = TMPanel(c,Density,Em,freq,L,PRatio,theta)
 
-global TM;
-global c 
+TM = eye(2);
 
 omega = 2*pi*freq;
 k = omega/c;

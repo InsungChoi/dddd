@@ -4,16 +4,15 @@
 %                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function TMElasticPanel(freq,theta,L, BulkDensity, FlowRes, SFactor, h, VCL, TCL, Em, PRatio, LFactor, hp, Densityp, Ep, PRatiop)
+function TM = TMElasticPanel(BulkDensity,c,Densityo,Densityp,Em,Ep,FlowRes,freq,h,HeatRatio,hp,ItaAir,L,LFactor,Npr,PRatio,PRatiop,SFactor,TCL,theta,VCL)
 %This is a function program to define the transfer matrix for foam-panel layer
 
-global TM;
-global c Densityo HeatRatio Npr ItaAir
+TM = eye(2);
 
 E1=Em*(1+1i*LFactor);	            % elastic Young's modulus of solid frame
 E0=Densityo*c^2;				    % elastic constant of fluid
 Density2=h*Densityo;				% density of fluid phase
-Densitya=Density2*(SFactor-1);	    % mass coupling factor
+DensityA=Density2*(SFactor-1);	    % mass coupling factor
 d=L;         						% thickness of panle-foam layer
 
 %Constant and variable definition
@@ -31,17 +30,15 @@ s2 = 1/c2*sqrt(Npr)*sqrt(8*omega*SFactor*Densityo/(h*FlowRes))*sqrt(-1i);
 Gc1 = -(s1*besselj(1,s1))/(besselj(0,s1))/(1-2*besselj(1,s1)/(s1*besselj(0,s1)));
 
 b = FlowRes*h^2*Gc1/4;
-        
-E0=Densityo*(c^2);
-E1=Em*(1+1i*LFactor);
+
 E2=E0/(1+((2*(HeatRatio-1)/s2)*besselj(1,s2)/besselj(0,s2)));
     
 A= PRatio*E1/(1+PRatio)/(1-2*PRatio);               % Lame constant
 N = E1/2/(1+PRatio);                                % Shear modulus
 
 Density1=BulkDensity;
-Density2=h*Densityo;
-DensityA=Density2*(SFactor-1);                      % mass coupling factor
+
+                      % mass coupling factor
 Density11s=Density1+DensityA+b/(1i*omega);
 Density12s=-DensityA-b/(1i*omega);
 Density22s=Density2+DensityA+b/(1i*omega);
@@ -58,7 +55,7 @@ A2 = omega^4*(Density11s*Density22s-Density12s^2)/(P*R-Q^2);
 k1 = sqrt((A1+sqrt(A1^2-4*A2))/2.0);
 k2 = sqrt((A1-sqrt(A1^2-4*A2))/2.0);
 kt = sqrt(omega^2/N*(Density11s-Density12s^2/Density22s));
-k1y = sqrt(k1^2-kx^2)
+k1y = sqrt(k1^2-kx^2);
 k2y = sqrt(k2^2-kx^2);
 kty = sqrt(kt^2-kx^2);
 
@@ -158,7 +155,7 @@ BM(6,4)=-2*N*kx*k2y/k2^2*exp(1i*k2y*d);
 BM(6,5)=N*(kx^2-kty^2)/kt^2*exp(-1i*kty*d);
 BM(6,6)=N*(kx^2-kty^2)/kt^2*exp(1i*kty*d);
 
-CM=AM*inv(BM);
+CM=AM*INV(BM);
 
 %Transfer Matrix for foam-panel system(Tfp)
 

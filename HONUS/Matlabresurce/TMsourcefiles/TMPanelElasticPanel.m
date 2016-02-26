@@ -4,17 +4,16 @@
 %                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function TMPanelElasticPanel(freq,theta,hp1, Densityp1, Ep1, PRatiop1, L, BulkDensity, FlowRes, SFactor, h, VCL, TCL, Em, PRatio, LFactor, hp2, Densityp2, Ep2, PRatiop2)
+function TM = TMPanelElasticPanel(BulkDensity,c,Densityo,Densityp1,Densityp2,Em,Ep1,Ep2,FlowRes,freq,h,HeatRatio,hp1,hp2,ItaAir,L,LFactor,Npr,PRatio,PRatiop1,PRatiop2,SFactor,TCL,theta,VCL)
 % This is a function program to define the transfer matrix for panel-foam-panel alyer
 
 % Definition of global variables
-global TM;
-global c Densityo HeatRatio Npr ItaAir
+TM = eye(2);
 
 E1=Em*(1+1i*LFactor);	            % elastic Young's modulus of solid frame
+
 E0=Densityo*c^2;				    % elastic constant of fluid
 Density2=h*Densityo;				% density of fluid phase
-Densitya=Density2*(SFactor-1);	    % mass coupling factor
 d=L;         						% thickness of panle-foam layer
 
 %Constant and variable definition
@@ -33,15 +32,12 @@ Gc1 = -(s1*besselj(1,s1))/(besselj(0,s1))/(1-2*besselj(1,s1)/(s1*besselj(0,s1)))
 
 b = FlowRes*h^2*Gc1/4;
         
-E0=Densityo*(c^2);
-E1=Em*(1+1i*LFactor);
 E2=E0/(1+((2*(HeatRatio-1)/s2)*besselj(1,s2)/besselj(0,s2)));
     
 A= PRatio*E1/(1+PRatio)/(1-2*PRatio);               % Lame constant
 N = E1/2/(1+PRatio);                                % Shear modulus
 
 Density1=BulkDensity;
-Density2=h*Densityo;
 DensityA=Density2*(SFactor-1);                      % mass coupling factor
 Density11s=Density1+DensityA+b/(1i*omega);
 Density12s=-DensityA-b/(1i*omega);
@@ -74,6 +70,7 @@ Dp1=Ep1*hp1/(1-PRatiop1^2);			% longitudinal stiffness of front panel
 Dp2=Ep2*hp2/(1-PRatiop2^2);			% longitudinal stiffness of rear panel
 
 Zmt1=1i*(omega*ms1-D1*kx^4/omega);	% mechanical impedance of front panel for transverse motion
+
 Zmt2=1i*(omega*ms2-D2*kx^4/omega);	% mechanical impedance of rear panel for transverse motion
 
 Zmp1=1i*(omega*ms1-Dp1*kx^2/omega);	% mechanical impedance of front panel for longitudinal motion
@@ -165,15 +162,11 @@ BM(6,4)=-2*N*kx*k2y/k2^2*exp(1i*k2y*d);
 BM(6,5)=N*(kx^2-kty^2)/kt^2*exp(-1i*kty*d);
 BM(6,6)=N*(kx^2-kty^2)/kt^2*exp(1i*kty*d);
 
-CM=AM*inv(BM);
+CM=INV(BM)*AM;
 
 %Transfer Matrix for panel-foam-panel configuration(Tpfp)
 
-Zmt1=1i*(omega*ms1-D1*kx^4/omega);
-Zmt2=1i*(omega*ms2-D2*kx^4/omega);
 
-Zmp1=1i*(omega*ms1-Dp1*kx^2/omega);
-Zmp2=1i*(omega*ms2-Dp2*kx^2/omega);
 	
 q1=-(CM(2,1)-CM(3,1))/(CM(2,5)-CM(3,5));
 q2=-(CM(2,2)+CM(2,3)-CM(3,2)-CM(3,3))/(CM(2,5)-CM(3,5));

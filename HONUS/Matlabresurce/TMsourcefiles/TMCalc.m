@@ -1,9 +1,4 @@
-function TMCalc(freq, theta, TotalThickness)
-% elseif Travl1==7, T1=TMRigid(L1, Density1,FlowRes1,SFactor1,h1,VCL1,TCL1); thick1=L1; 
-
-global c Densityo 
-global Result;
-global Rigid Anechoic TL;
+function out = TMCalc(c,Densityo,freq,Result,theta,TotalThickness)
 
 omega = 2*pi*freq;
 k = omega/c;
@@ -19,3 +14,5 @@ Anechoic=1-abs(R2)^2;
 
 T=2*exp(1i*ky*TotalThickness)/(Result(1,1)+cos(theta)/Densityo/c*Result(1,2)+Densityo*c/cos(theta)*Result(2,1)+Result(2,2));
 TL=abs(T)^2;
+
+out = [Rigid Anechoic TL];

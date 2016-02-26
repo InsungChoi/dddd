@@ -4,10 +4,9 @@
 %                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function TMElastic(freq,theta,L,BulkDensity,FlowRes,SFactor,h,VCL,TCL,Em,LFactor,PRatio)
+function TM = TMElastic(BulkDensity,c,Densityo,Em,FlowRes,freq,h,HeatRatio,ItaAir,L,LFactor,Npr,PRatio,SFactor,TCL,theta,VCL)
 
-global TM;
-global c Densityo HeatRatio Npr ItaAir
+TM = eye(2);
 
 %Constant and variable definition
 omega = 2*pi*freq;
@@ -144,27 +143,15 @@ BM(6,4)=-2*N*kx*k2y/k2^2*exp(1i*k2y*L);
 BM(6,5)=N*(kx^2-kty^2)/kt^2*exp(-1i*kty*L);
 BM(6,6)=N*(kx^2-kty^2)/kt^2*exp(1i*kty*L);
 
-CM=AM*inv(BM);
-
+CM=AM*INV(BM);
+DM = eye(4);
 for i=1:4;
 	for k=1:4;
 		DM(i,k)=CM(i+1,k+1)-CM(i+1,1)*CM(6,k+1)/CM(6,1);
 	end
 end
 
-%U1 = (1-h)/h*DM(4,2)-1/h*DM(4,1);
-%U2 = (1-h)/h*DM(4,3)+DM(4,4);
-%U3 = -DM(4,2)/(j*omega*h^2);
-%U4 = j*omega*((1-h)*(DM(1,1)-DM(2,2))-(1-h)^2/h*DM(1,2));
-%U5 = -j*omega*((1-h)^2*DM(1,3)+h*(1-h)*(DM(1,3)+DM(1,4))+h^2*DM(2,4));
-%U6 = (1-h)/h*DM(1,2)+DM(2,2);
-%U7 = ((1-h)/h*DM(4,3)+DM(4,4)-DM(3,3)-h/(1-h)*DM(3,4))/(DM(3,1)/(1-h)-1/h*(DM(4,1)+DM(3,2))+(1-h)/(h^2)*DM(4,2));
-%U8 = (DM(3,2)/(h*(1-h))-DM(4,2)/(h^2))/(j*omega*(DM(3,1)/(1-h)-1/h*(DM(4,1)+DM(3,2))+(1-h)/(h^2)*DM(4,2)));
 
-%TElastic(1,1)=U2-U1*U7;
-%TElastic(1,2)=U3-U8*U1;
-%TElastic(2,1)=U5-U7*U4;
-%TElastic(2,2)=U6-U8*U4;
 
 Q1=-(h*DM(3,1)-(1-h)*DM(4,1))/(h*DM(3,2)-(1-h)*DM(4,2));
 Q2=(h*(1-h)*(DM(4,4)-DM(3,3))+(1-h)^2*DM(4,3)-h^2*DM(3,4))/((1-h)*DM(4,2)-h*DM(3,2));
@@ -175,3 +162,4 @@ TM(1,1)=DM(4,4)+(1-h)/h*DM(4,3)+(Q1/(1-h+h*Q1)-1/h)*Q2*DM(4,2)+(Q2/(1-h+h*Q1))*D
 TM(1,2)=-(DM(4,1)+Q1*DM(4,2))/(1i*omega*h*(1-h+h*Q1));
 TM(2,1)=Q4-h*Q2*Q3/(1-h+h*Q1);
 TM(2,2)=Q3/(1i*omega*(1-h+h*Q1));
+end

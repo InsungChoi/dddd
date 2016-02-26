@@ -6,10 +6,10 @@
 
 
 
-function TMLimp(freq,theta,L,BulkDensity,FlowRes,SFactor,h,VCL,TCL)
+function TM = TMLimp(BulkDensity,c,Densityo,FlowRes,freq,h,HeatRatio,ItaAir,L,Npr,P0,SFactor,TCL,theta,VCL)
 
-global TM;
-global c Densityo HeatRatio Npr ItaAir P0
+TM = eye(2);
+
 
 %Constant and variable definition
 omega = 2*pi*freq;

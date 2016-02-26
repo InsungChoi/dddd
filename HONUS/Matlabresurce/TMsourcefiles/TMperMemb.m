@@ -4,15 +4,14 @@
 %                                                              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function TMperMemb(freq,theta, L, Density, FlowRes)
+function TM = TMperMemb(Density,FlowRes,freq,L)
 
-global TM;
-global c 
+TM = eye(2);
 %Constant and variable definition
 omega = 2*pi*freq;
-k = omega/c;
-kx = k*sin(theta);
-ky = k*cos(theta);
+%k = omega/c; %%unused variable
+%kx = k*sin(theta); %%unused variable
+%ky = k*cos(theta); %%unused variable
 
 ms=Density*L;
 

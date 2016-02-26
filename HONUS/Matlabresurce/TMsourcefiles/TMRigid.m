@@ -5,16 +5,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-function TMRigid(freq,theta, L,BulkDensity,FlowRes,SFactor,h,VCL,TCL)
-% elseif Travl1==7, T1=TMRigid(L1, Density1,FlowRes1,SFactor1,h1,VCL1,TCL1); thick1=L1; 
-global TM;
-global c Densityo HeatRatio Npr ItaAir P0
+function TM = TMRigid(BulkDensity,c,Densityo,FlowRes,freq,h,HeatRatio,ItaAir,L,Npr,P0,SFactor,TCL,theta,VCL)
+
+TM = eye(2);
 
 %Constant and variable definition
 omega = 2*pi*freq;
 k = omega/c;
 kx = k*sin(theta);
-ky = k*cos(theta);
+%ky = k*cos(theta); %% unused variable
 
 c1=1/VCL*sqrt(8*SFactor*ItaAir/(h*FlowRes));
 c2=1/TCL*sqrt(8*SFactor*ItaAir/(h*FlowRes));
@@ -48,3 +47,4 @@ TM(1,1) = cos(kpy*L);
 TM(1,2) = 1i*(R*a+Q)/(omega*h*(1+(a-1)*h))*(kp^2/kpy)*sin(kpy*L);
 TM(2,1) = 1i*(omega*h*(1+(a-1)*h)/(R*a+Q))*(kpy/kp^2)*sin(kpy*L);
 TM(2,2) = cos(kpy*L);
+
