@@ -1,17 +1,4 @@
-function MeritCalc(freq, MAbsorption, BulkDensity,FlowRes, SFactor, h, c1, c2, L)
-
-    global Npr
-    global Density1
-    global HeatRatio
-    global ItaAir
-    global P0
-    global Densityo
-    global Z0
-    global B 
-    global Absorption
-    global RealSurfaceImpedance;
-    global ImagSurfaceImpedance;
-    global Merit
+function output = MeritCalc(BulkDensity,B,c1,c2,Densityo,FlowRes,freq,h,HeatRatio,ItaAir,L, MAbsorption,Npr,P0,SFactor,Z0)
 
     Density1=BulkDensity;
     omega=2*pi.*freq;
@@ -34,7 +21,8 @@ function MeritCalc(freq, MAbsorption, BulkDensity,FlowRes, SFactor, h, c1, c2, L
     ImagSurfaceImpedance=imag(Z);
     
     Merit=(MAbsorption-Absorption)^2;
-
+    output = [Merit Absorption RealSurfaceImpedance ImagSurfaceImpedance];
+    
     
     
     

@@ -1,16 +1,4 @@
-function APFibrous5para(L, FlowRes, SFactor, h, c1, c2, fre)
-% PEFibrous5para(L, BulkDensity,FlowRes, SFactor, h, c1, c2, fre, RowSizeOfPara, MeasuredAbsorptionMat)
-    
-    global ItaAir 
-    global P0 
-    global Z0 
-    global B 
-    global Densityo
-    global Npr
-    global Density1
-    global HeatRatio
-    global APFibrous
-
+function APFibrous = APFibrous5para(B,c1,c2,Density1,Densityo,FlowRes,fre,h,HeatRatio,ItaAir,L,Npr,P0,SFactor,Z0)
     omega=2*pi.*fre;
            
     VCL=1./c1*sqrt(8.*SFactor.*ItaAir./(h.*FlowRes));

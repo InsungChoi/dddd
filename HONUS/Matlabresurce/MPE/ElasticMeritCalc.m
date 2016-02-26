@@ -1,16 +1,4 @@
-function ElasticMeritCalc(freq, MeasuredAbsorption, FlowRes,SFactor,h,c1,c2,Em, LFactor,PRatio,L)
-    global c
-    global Densityo
-    global Npr
-    global Density1
-    global DensityA
-    global HeatRatio
-    
-    global Absorption
-    global RealSurfaceImpedance
-    global ImagSurfaceImpedance
-    global Merit
-
+function output = ElasticMeritCalc(c,c1,c2,Density1,DensityA,Densityo,Em,FlowRes,freq,h,HeatRatio,L,LFactor,MeasuredAbsorption,Npr,PRatio,SFactor)
     omega=2*pi*freq;
     k=omega/c;
 
@@ -118,4 +106,4 @@ function ElasticMeritCalc(freq, MeasuredAbsorption, FlowRes,SFactor,h,c1,c2,Em, 
     Absorption=1-(abs(Ref))^2;
 
     Merit=(MeasuredAbsorption-Absorption)^2;
-
+    output = [Merit Absorption RealSurfaceImpedance ImagSurfaceImpedance];

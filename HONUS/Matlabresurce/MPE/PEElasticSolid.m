@@ -1,7 +1,6 @@
-function PEElasticSolid(L, BulkDensity, ResonanceFrequency)
+function SolidPara = PEElasticSolid(BulkDensity,L,ResonanceFrequency)
 
 
-global SolidPara
 
 Density1=BulkDensity;
 
