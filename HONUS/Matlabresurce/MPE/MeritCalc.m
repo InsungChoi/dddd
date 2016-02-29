@@ -1,6 +1,6 @@
 function output = MeritCalc(BulkDensity,B,c1,c2,Densityo,FlowRes,freq,h,HeatRatio,ItaAir,L, MAbsorption,Npr,P0,SFactor,Z0)
 
-    Density1=BulkDensity;
+    %%Density1=BulkDensity;  %%INSUNG
     omega=2*pi.*freq;
            
     VCL=1./c1*sqrt(8.*SFactor.*ItaAir./(h.*FlowRes));
@@ -10,7 +10,8 @@ function output = MeritCalc(BulkDensity,B,c1,c2,Densityo,FlowRes,freq,h,HeatRati
     HP = 16.*ItaAir./(((Npr.*TCL).^2).*Densityo);
     
     DySFactor = SFactor.*(1-1i*h.*FlowRes./(omega.*Densityo.*SFactor).*sqrt(1+1i*omega./H));
-    Bterm = ((h./DySFactor-1).^2)./(h.*Density1+(h.^2).*Densityo.*(1-1./DySFactor));
+    %Bterm =((h./DySFactor-1).^2)./(h.*Density1+(h.^2).*Densityo.*(1-1./DySFactor));%%INSUNG
+    Bterm = ((h./DySFactor-1).^2)./(h.*BulkDensity+(h.^2).*Densityo.*(1-1./DySFactor));%%INSUNG
     DyDensity = (1./(Densityo.*DySFactor) + B.*Bterm).^(-1);
     Kf = HeatRatio.*P0./(HeatRatio-(HeatRatio-1).*(1-1i*HP./(2.*omega).*sqrt(1+1i*omega./HP)).^(-1));
     

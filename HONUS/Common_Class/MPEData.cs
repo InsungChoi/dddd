@@ -88,6 +88,14 @@ namespace HONUS.Common_Class
 		public bool PoissonREst;
 		public bool LossFactorEst;
 
+
+		//Matlab variable  //INSUNG
+		public double mc;
+		public double mDensity1;
+		public double mDensityA;
+		public double mFlow
+		
+
 		// Local Parameter
 		private double HeatRatio;
 		private double Npr;
@@ -702,7 +710,7 @@ namespace HONUS.Common_Class
 			MeritCalcClass.MAbsorption = TempMAbsorption;
 			MeritCalcClass.Frequency = TempFrequency;
 
-			MeritCalcClass.BulkDensity = BulkDensity;
+			//MeritCalcClass.BulkDensity = BulkDensity;  //INSUNG
 			MeritCalcClass.Thickness = Thickness;
 			MeritCalcClass.FlowRes = FResist;
 			MeritCalcClass.SFactor = SFactor;
@@ -1452,6 +1460,7 @@ namespace HONUS.Common_Class
 				freq=TempFrequency[ff-1];
 				MeritCalcClass.meritcalc(freq, (double)TempMAbsorption[ff-1], 
 					BulkDensity, tFResist, tSFactor, tPorosity, tc1, tc2, Thickness);
+				MeritCalcClass.Desity1 = BulkDensity;//INSUNG
 				Merit=Merit+(double)(MeritCalcClass.Merit);
 				tempError=(double)(MeritCalcClass.Merit);
 				if(MaxError>tempError)
@@ -1496,6 +1505,7 @@ namespace HONUS.Common_Class
 				freq=Frequency.GetData(ff);
 				MeritCalcClass.meritcalc(freq, (double)MAbsorption.GetData(ff), 
 					BulkDensity, FResist, SFactor, Porosity, c1, c2, Thickness);
+				MeritCalcClass.Desity1 = BulkDensity;//INSUNG
 				
 				CAbsorption.AddData((double)MeritCalcClass.Absorption);
 				CRealSurfaceImpedance.AddData((double)MeritCalcClass.RealSurfaceImpedance);

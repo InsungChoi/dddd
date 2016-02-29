@@ -2,7 +2,7 @@ function SolidPara = PEElasticSolid(BulkDensity,L,ResonanceFrequency)
 
 
 
-Density1=BulkDensity;
+%Density1=BulkDensity;%%INSUNG
 
 ResonanceFrequencyMat=ResonanceFrequency*ones(100,50);
 
@@ -15,7 +15,8 @@ for ii=1:1:100
             A= tPRatio.*E1./(1+tPRatio)./(1-2.*tPRatio);               % Lame constant  
             N=E1./2./(1+tPRatio);                                  % shear modulus
             Kc=A+2.*N;
-            ResonanceFrequency_temp=1./(4.*L)*real(sqrt(Kc./Density1));
+            %%ResonanceFrequency_temp=1./(4.*L)*real(sqrt(Kc./Density1));%%INSUNG
+            ResonanceFrequency_temp=1./(4.*L)*real(sqrt(Kc./BulkDensity));%%INSUNG
             ResonFreErrorTemp=abs(ResonanceFrequency_temp - ResonanceFrequency).^2;
 %     [C I]=min(ResonFreErrorTemp);
 %     [C2 I2]=min(C);
