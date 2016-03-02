@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using MathWorks.MATLAB.NET.Utility;
+using MathWorks.MATLAB.NET.Arrays;
 
 namespace HONUS.Common_Class
 {
@@ -59,6 +61,18 @@ namespace HONUS.Common_Class
 		public ClsData Rgraph_AT;
 
 		private TM.TMclassClass TMCalc;
+        private MWArray m_c;
+        private MWArray m_Densityo;
+        private MWArray m_HeatRatio;
+        private MWArray m_Npr;
+        private MWArray m_ItaAir;
+        private MWArray m_P0;
+        private MWArray m_TM;
+        private MWArray m_Result;
+        private MWArray m_Out;
+        private MWArray m_tempOut;
+
+
 		private int limitfreq;
 
 		public SAClass()
@@ -89,12 +103,12 @@ namespace HONUS.Common_Class
 		
 		private void setInitialData()
 		{
-			TMCalc.c=343.0;				
-			TMCalc.Densityo=1.21;
-			TMCalc.HeatRatio=1.4;
-			TMCalc.Npr=0.732;		
-			TMCalc.ItaAir=1.84*Math.Pow(10,-5);
-			TMCalc.P0=101325.0;
+            m_c = 343.0;
+            m_Densityo = 1.21;
+            m_HeatRatio = 1.4;
+            m_Npr = 0.732;
+            m_ItaAir = 1.84 * Math.Pow(10, -5);
+            m_P0 = 101325.0;
 		}
 
 
@@ -383,36 +397,37 @@ namespace HONUS.Common_Class
 
 				for (double IncAngleTemp = IncAngleStart;IncAngleTemp <= IncAngleEnd; IncAngleTemp = IncAngleTemp + IncAngleStart)
 				{
-					TMCalc.tminit();
+                    m_tempOut = TMCalc.TMInit();
+                    m_TM = m_tempOut[1];
+                    m_Result = m_tempOut[2];
 					double theta=IncAngleTemp*Math.PI/180;
 
 					switch (MID)
 					{
 						case 5:
-							TMCalc.tmlimp(freq, theta, Thick,  BulkDens, FlowRes, SFactor, Porosity, ViscousCL*0.000001, ThermalCL*0.000001);
+                            m_TM = TMCalc.TMLimp(BulkDens, m_c,m_Densityo,FlowRes, freq, Porosity, m_HeatRatio,m_ItaAir,Thick,m_Npr,m_P0,SFactor,ThermalCL * 0.000001, theta,ViscousCL * 0.000001);
 							break;
 						case 6:
-							TMCalc.tmrigid(freq, theta, Thick,  BulkDens, FlowRes, SFactor, Porosity, ViscousCL*0.000001, ThermalCL*0.000001);
-							break;
+                            m_TM = TMCalc.TMRigid(BulkDens,m_c,m_Densityo,FlowRes,freq,Porosity,m_HeatRatio,m_ItaAir,Thick,m_Npr,m_P0,SFactor,ThermalCL * 0.000001,theta,ViscousCL * 0.000001);
+                            break;
 						case 7:
-							TMCalc.tmelastic(freq, theta, Thick,  BulkDens, FlowRes, SFactor, Porosity, ViscousCL*0.000001, ThermalCL*0.000001, Ymodulus, LossFactor, PoissionR);
-							break;
+                            m_TM = TMCalc.TMElastic(BulkDens, m_c, m_Densityo, Ymodulus, FlowRes, freq, Porosity, m_HeatRatio, m_ItaAir, Thick, LossFactor, m_Npr, PoissionR, SFactor, ThermalCL * 0.000001, theta, ViscousCL * 0.000001);
+                            break;
 					}
 
-					TMCalc.tmmul();
-					TMCalc.tmcalc(freq, theta, Thick);
-
+                    m_Result = TMCalc.TMMul(m_TM, m_Result);
+					m_Out = TMCalc.TMCalc(freq, theta, Thick);
 					if (Incidence == 1)
 					{
-						Rgraph_RB.AddData((double)TMCalc.Rigid);
-						Rgraph_AT.AddData((double)TMCalc.Anechoic);
-						Rgraph_TL.AddData(10*Math.Log10(1/(double)TMCalc.TL));
+                        Rgraph_RB.AddData(double.Parse(m_Out[1].ToString()));
+                        Rgraph_AT.AddData(double.Parse(m_Out[2].ToString()));
+                        Rgraph_TL.AddData(10 * Math.Log10(1 / double.Parse(m_Out[3].ToString())));
 					} 
 					else
 					{
-						Rigid[i,k] = 2*(double)TMCalc.Rigid*Math.Sin(theta)*Math.Cos(theta);
-						Anechoic[i,k] = 2*(double)TMCalc.Anechoic*Math.Sin(theta)*Math.Cos(theta);
-						TL[i,k] = 2*(double)TMCalc.TL*Math.Sin(theta)*Math.Cos(theta);
+                        Rigid[i, k] = 2 * double.Parse(m_Out[1].ToString()) * Math.Sin(theta) * Math.Cos(theta);
+                        Anechoic[i, k] = 2 * double.Parse(m_Out[2].ToString()) * Math.Sin(theta) * Math.Cos(theta);
+                        TL[i, k] = 2 * double.Parse(m_Out[3].ToString()) * Math.Sin(theta) * Math.Cos(theta);
 					}
 					k = k+1;
 				}

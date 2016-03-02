@@ -17,7 +17,8 @@ namespace HONUS.Common_Class
 
 		public Common_DataBase()
 		{
-			conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Jet OLEDB:Database Password=HONUS ;Data Source = " + System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\HONUS.mdb");
+			//conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Jet OLEDB:Database Password=HONUS ;Data Source = " + System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\HONUS.mdb");
+			conn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Jet OLEDB:Database Password=HONUS ;Data Source = " + System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\HONUS.mdb");
 			//conn = new OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Jet OLEDB:Database Password=HONUS ;Data Source = c:\\HONUS.mdb");
 			//conn = new OleDbConnection("Provider=SQLOLEDB;server=(local);uid=sa;pwd=admin5;Trusted_Connection=true;database=TDPMS_V3");
 			comm = new OleDbCommand("",conn);

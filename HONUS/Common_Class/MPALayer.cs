@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using MathWorks.MATLAB.NET.Arrays;
+using MathWorks.MATLAB.NET.Utility;
 
 namespace HONUS.Common_Class
 {
@@ -34,7 +36,18 @@ namespace HONUS.Common_Class
 		public ClsData RigidBacking;
 		public ClsData AnechoicTermination;
 		public ClsData TransmissionLoss;
-		private TM.TMclassClass TMCalc;
+		
+        private TM.TMclassClass TMCalc;
+        private MWArray m_c;
+        private MWArray m_Densityo;
+        private MWArray m_HeatRatio;
+        private MWArray m_Npr;
+        private MWArray m_ItaAir;
+        private MWArray m_P0;
+        private MWArray m_TM;
+        private MWArray m_Result;
+        private MWArray m_Out;
+        private MWArray m_tempOut;
 
 		public MPALayer()
 		{
@@ -52,12 +65,12 @@ namespace HONUS.Common_Class
 
 		private void setInitialData()
 		{
-			TMCalc.c=343.0;
-			TMCalc.Densityo=1.21;
-			TMCalc.HeatRatio=1.4;
-			TMCalc.Npr=0.732;
-			TMCalc.ItaAir=1.84*Math.Pow(10,-5);
-			TMCalc.P0=101325.0;
+            m_c = 343.0;
+			m_Densityo=1.21;
+            m_HeatRatio = 1.4;
+            m_Npr = 0.732;
+            m_ItaAir = 1.84 * Math.Pow(10, -5);
+            m_P0 = 101325.0;
 		}
 
 		private void setFrequency()
@@ -212,9 +225,11 @@ namespace HONUS.Common_Class
 
 				for (double IncAngleTemp = IncAngleStart;IncAngleTemp <= IncAngleEnd; IncAngleTemp = IncAngleTemp + IncAngleStart)
 				{
-					TMCalc.tminit();
-					// 임시 루틴.
-					TMCalc.tmcheck();
+                    m_tempOut = TMCalc.TMInit();
+                    m_TM = m_tempOut[1];
+                    m_Result = m_tempOut[2];
+                    // 임시 루틴.
+                    //m_TM = TMCalc.TMCheck();
 					double theta=IncAngleTemp*Math.PI/180;
 
 					for (int jj=0; jj<MatCollection.Count;jj++)
@@ -223,57 +238,57 @@ namespace HONUS.Common_Class
 						switch (Mat.MID)
 						{
 							case 1:
-								TMCalc.tmair(freq, theta, Mat.Thick);
-								break;
+                                m_TM = TMCalc.TMAir(m_c,m_Densityo,freq,Mat.Thick,theta);
+                                break;
 							case 2:
-								TMCalc.tmpanel(freq, theta, Mat.Thick, Mat.BulkDens, Mat.Ymodulus, Mat.PoissionR);
-								break;
+                                m_TM = TMCalc.TMPanel(m_c,Mat.BulkDens,Mat.Ymodulus,freq,Mat.Thick,Mat.PoissionR,theta);
+                                break;
 							case 3:
-								TMCalc.tmimpermemb(freq, theta, Mat.Thick, Mat.BulkDens);
+                                m_TM = TMCalc.TMImperMemb(m_c,Mat.BulkDens,freq,Mat.Thick,theta);
 								break;
 							case 4:
-								TMCalc.tmpermemb(freq, theta, Mat.Thick, Mat.BulkDens, Mat.FlowRes);
+                                m_TM = TMCalc.TMImperMemb(m_c, Mat.BulkDens, freq, Mat.Thick, theta);
 								break;
 							case 5:
-								TMCalc.tmlimp(freq, theta, Mat.Thick,  Mat.BulkDens, Mat.FlowRes, Mat.SFactor, Mat.Porosity, Mat.ViscousCL/1000000, Mat.ThermalCL/1000000);
-								break;
+                                m_TM = TMCalc.TMLimp(Mat.BulkDens, m_c, m_Densityo, Mat.FlowRes, freq, Mat.Porosity, m_HeatRatio, m_ItaAir, Mat.Thick, m_Npr, m_P0, Mat.SFactor, Mat.ThermalCL / 1000000, theta, Mat.ViscousCL / 1000000);
+                                break;
 							case 6:
-								TMCalc.tmrigid(freq, theta, Mat.Thick,  Mat.BulkDens, Mat.FlowRes, Mat.SFactor, Mat.Porosity, Mat.ViscousCL/1000000, Mat.ThermalCL/1000000);
-								break;
+                                m_TM = TMCalc.TMRigid(Mat.BulkDens, m_c, m_Densityo, Mat.FlowRes, freq, Mat.Porosity, m_HeatRatio, m_ItaAir, Mat.Thick, m_Npr, m_P0, Mat.SFactor, Mat.ThermalCL / 1000000, theta, Mat.ViscousCL / 1000000);
+                                break;
 							case 7:
-								TMCalc.tmelastic(freq, theta, Mat.Thick,  Mat.BulkDens, Mat.FlowRes, Mat.SFactor, Mat.Porosity, Mat.ViscousCL/1000000, Mat.ThermalCL/1000000, Mat.Ymodulus, Mat.LossFactor, Mat.PoissionR);
-								break;
+                                m_TM = TMCalc.TMElastic(Mat.BulkDens, m_c, m_Densityo, Mat.Ymodulus, Mat.FlowRes, freq, Mat.Porosity, m_HeatRatio, m_ItaAir, Mat.Thick, Mat.LossFactor, m_Npr, Mat.PoissionR, Mat.SFactor, Mat.ThermalCL / 1000000, theta, Mat.ViscousCL / 1000000);
+                                break;
 							case 8:
-								TMCalc.tmpanelelastic(freq, theta, Mat.HP1, Mat.DensityP1, Mat.EmP1, Mat.PRatioP1, Mat.Thick,  Mat.BulkDens, Mat.FlowRes, Mat.SFactor, Mat.Porosity, Mat.ViscousCL/1000000, Mat.ThermalCL/1000000, Mat.Ymodulus, Mat.LossFactor, Mat.PoissionR);
+                                m_TM = TMCalc.TMPanelElastic(Mat.BulkDens, m_c, m_Densityo, Mat.DensityP1, Mat.Ymodulus, Mat.EmP1, Mat.FlowRes, freq, Mat.Porosity, m_HeatRatio, Mat.HP1, m_ItaAir, Mat.Thick, Mat.LossFactor, m_Npr, Mat.PoissionR,Mat.PRatioP1,Mat.SFactor,Mat.ThermalCL/1000000,theta,Mat.ViscousCL/1000000);
+                                break;
+                            case 9:
+                                m_TM = TMCalc.TMElasticPanel(Mat.BulkDens, m_c, m_Densityo, Mat.DensityP2, Mat.Ymodulus, Mat.EmP2, Mat.FlowRes, freq, Mat.Porosity, m_HeatRatio, Mat.HP2 / 1000, Mat.Thick, Mat.LossFactor, m_Npr, Mat.PoissionR, Mat.PRatioP2, Mat.SFactor, Mat.ThermalCL/1000000, theta, Mat.ViscousCL/1000000);
 								break;
-							case 9:
-								TMCalc.tmelasticpanel(freq, theta, Mat.Thick,  Mat.BulkDens, Mat.FlowRes, Mat.SFactor, Mat.Porosity, Mat.ViscousCL/1000000, Mat.ThermalCL/1000000, Mat.Ymodulus, Mat.LossFactor, Mat.PoissionR , Mat.HP2/1000, Mat.DensityP2, Mat.EmP2, Mat.PRatioP2);
-								break;
-							default :
-								TMCalc.tmpanelelasticpanel(freq, theta,Mat.HP1, Mat.DensityP1, Mat.EmP1, Mat.PRatioP1, Mat.Thick,  Mat.BulkDens, Mat.FlowRes, Mat.SFactor, Mat.Porosity, Mat.ViscousCL/1000000, Mat.ThermalCL/1000000, Mat.Ymodulus, Mat.LossFactor, Mat.PoissionR , Mat.HP2, Mat.DensityP2, Mat.EmP2, Mat.PRatioP2);
-								break;
+                            default :
+                                m_TM = TMCalc.TMPanelElasticPanel(Mat.BulkDens, m_c, m_Densityo, Mat.DensityP1, Mat.DensityP2, Mat.Ymodulus, Mat.EmP1, Mat.EmP2, Mat.FlowRes, freq, Mat.Porosity, m_HeatRatio, Mat.HP1, Mat.HP2,m_ItaAir,Mat.Thick, Mat.LossFactor,m_Npr, Mat.PoissionR, Mat.PRatioP1, Mat.PRatioP2, Mat.SFactor, Mat.ThermalCL / 1000000, theta,Mat.ViscousCL / 1000000);
+                                break;
 						}
 						// 임시 루틴.
-						TMCalc.tmcheck();
-						TMCalc.tmmul();
+						//TMCalc.TMCheck();
+                        m_Result = TMCalc.TMMul(m_TM, m_Result);
 						// 임시 루틴.
-						TMCalc.tmcheck();
+						//TMCalc.TMCheck();
 					}
-					TMCalc.tmcalc(freq, theta, TotalThickness);
+                    m_Out = TMCalc.TMCalc(freq, theta, TotalThickness);
 					// 임시 루틴.
-					TMCalc.tmcheck();
+					//TMCalc.TMCheck();
 
 					if (Incidence == 1)
 					{
-						RigidBacking.AddData((double)TMCalc.Rigid);
-						AnechoicTermination.AddData((double)TMCalc.Anechoic);
-						TransmissionLoss.AddData(10*Math.Log10(1/(double)TMCalc.TL));
+                        RigidBacking.AddData(double.Parse(m_Out[1].ToString()));
+                        AnechoicTermination.AddData(double.Parse(m_Out[2].ToString()));
+                        TransmissionLoss.AddData(10 * Math.Log10(1 / double.Parse(m_Out[3].ToString())));
 					} 
 					else
 					{
-						Rigid[i,k] = 2*(double)TMCalc.Rigid*Math.Sin(theta)*Math.Cos(theta);
-						Anechoic[i,k] = 2*(double)TMCalc.Anechoic*Math.Sin(theta)*Math.Cos(theta);
-						TL[i,k] = 2*(double)TMCalc.TL*Math.Sin(theta)*Math.Cos(theta);
+                        Rigid[i, k] = 2 * double.Parse(m_Out[1].ToString()) * Math.Sin(theta) * Math.Cos(theta);
+                        Anechoic[i, k] = 2 * double.Parse(m_Out[2].ToString()) * Math.Sin(theta) * Math.Cos(theta);
+                        TL[i, k] = 2 * double.Parse(m_Out[3].ToString()) * Math.Sin(theta) * Math.Cos(theta);
 					}
 					k = k+1;
 				}

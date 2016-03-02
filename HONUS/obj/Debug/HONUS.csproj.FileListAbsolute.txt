@@ -212,3 +212,9 @@ C:\Users\Insung_Choi\Documents\GitHub\dddd\HONUS\obj\Debug\HONUS.SensitivityAnal
 C:\Users\Insung_Choi\Documents\GitHub\dddd\HONUS\obj\Debug\HONUS.SensitivityAnalysis.UserControl.ucAnalysisSetup.resources
 C:\Users\Insung_Choi\Documents\GitHub\dddd\HONUS\obj\Debug\HONUS.SensitivityAnalysis.UserControl.ucSensitivityAnalysis.resources
 C:\Users\Insung_Choi\Documents\GitHub\dddd\HONUS\obj\Debug\HONUS.csproj.GenerateResource.Cache
+D:\Project\HONUS\bin\Debug\HONUS.exe.config
+D:\Project\HONUS\obj\Debug\Interop.Microsoft.Office.Core.dll
+D:\Project\HONUS\obj\Debug\Interop.VBIDE.dll
+D:\Project\HONUS\obj\Debug\HONUS.csproj.ResolveComReference.cache
+D:\Project\HONUS\obj\Debug\HONUS.exe
+D:\Project\HONUS\obj\Debug\HONUS.pdb

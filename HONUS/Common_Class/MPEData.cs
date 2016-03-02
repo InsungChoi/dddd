@@ -1,6 +1,10 @@
 using System;
 using System.IO;
 using System.Data;
+using MathWorks.MATLAB.NET.Arrays;
+using MathWorks.MATLAB.NET.Utility;
+using MPE;
+
 
 namespace HONUS.Common_Class
 {
@@ -90,10 +94,17 @@ namespace HONUS.Common_Class
 
 
 		//Matlab variable  //INSUNG
-		public double mc;
-		public double mDensity1;
-		public double mDensityA;
-		public double mFlow
+		
+        public double m_Density1;
+		public double m_DensityA;
+		public double m_Merit;
+		public double m_Absorption;
+        public double[,] m_DataFitted;
+		public double m_ImagSurfaceImpedance;
+		public double m_RealSurfaceImpedance;
+		public MWArray m_Out;
+		
+		
 		
 
 		// Local Parameter
@@ -469,7 +480,7 @@ namespace HONUS.Common_Class
 
 			ErrorTemp =new double[2] {1,1000};
 
-			MeritCalcClass.Density1=BulkDensity;
+			m_Density1=BulkDensity;
 
 			do 
 			{
@@ -484,7 +495,7 @@ namespace HONUS.Common_Class
             
 			if ((MID == 7) && ( YmodulusEst || PoissonREst || LossFactorEst))
 			{
-				MeritCalcClass.DensityA=Densityo*Porosity*(SFactor-1);
+				m_DensityA=Densityo*Porosity*(SFactor-1);
 
 				OptSolidPara=SolidCalc();
 				Ymodulus=OptSolidPara[1,1];
@@ -570,7 +581,11 @@ namespace HONUS.Common_Class
 				FrequencyFitted[i-1] = i*200;
 			}
 
-			MeritCalcClass.polyfitting(FrequencyFitted, FrequencySampled, MAbsorptionSampled, 13);
+			//MeritCalcClass.polyfitting(FrequencyFitted, FrequencySampled, MAbsorptionSampled, 13);  //INSUNG
+            m_Out = MeritCalcClass.PolyFitting((MWNumericArray)MAbsorptionSampled, (MWNumericArray)FrequencyFitted, (MWNumericArray)FrequencySampled, 13);
+            //m_Out = MeritCalcClass.PolyFitting( 
+            
+            m_DataFitted = (double[,])m_Out.ToArray();
 
 			//			MAbsorptionFitted = ((Array)MeritCalcClass.DataFitted).;
 
@@ -582,7 +597,7 @@ namespace HONUS.Common_Class
 			{
 				TempFrequency[i-1] = FrequencyFitted[i-1];
 				temp[1] = i;
-				TempMAbsorption[i-1] = (double)((Array)MeritCalcClass.DataFitted).GetValue(temp);
+                TempMAbsorption[i - 1] = (double)m_DataFitted.GetValue(0, temp[1]);
 			}
 
 
@@ -594,13 +609,16 @@ namespace HONUS.Common_Class
 					MRealSurfaceImpedanceSampled[i] = MRealSurfaceImpedance.GetData(InitFre + i-1);
 				}
 
-				MeritCalcClass.polyfitting(FrequencyFitted, FrequencySampled, MRealSurfaceImpedanceSampled, 13);
+				//MeritCalcClass.polyfitting(FrequencyFitted, FrequencySampled, MRealSurfaceImpedanceSampled, 13); //INSUNG
+                m_Out = MeritCalcClass.PolyFitting((MWNumericArray)MRealSurfaceImpedanceSampled, (MWNumericArray)FrequencyFitted, (MWNumericArray)FrequencySampled, 13);
+                m_DataFitted = (double[,])m_Out.ToArray();
+
 				//				MSurfaceImpedanceFitted = (double[])MeritCalcClass.DataFitted;
 				
 				for (int i=1;i<33;i++)
 				{
 					temp[1] = i;
-					TempMRealSurfaceImpedance[i-1] = (double)((Array)MeritCalcClass.DataFitted).GetValue(temp);
+                    TempMRealSurfaceImpedance[i - 1] = (double)m_DataFitted.GetValue(0, temp[1]);
 				}
 			}
 
@@ -612,13 +630,15 @@ namespace HONUS.Common_Class
 					MlmagSurfaceImpedanceSampled[i] = MImagSurfaceImpedance.GetData(InitFre + i-1);
 				}
 
-				MeritCalcClass.polyfitting(FrequencyFitted, FrequencySampled, MlmagSurfaceImpedanceSampled, 13);
+				//MeritCalcClass.polyfitting(FrequencyFitted, FrequencySampled, MlmagSurfaceImpedanceSampled, 13);  //INSUNG
+                MeritCalcClass.PolyFitting((MWNumericArray)MlmagSurfaceImpedanceSampled, (MWNumericArray)FrequencyFitted, (MWNumericArray)FrequencySampled, 13);
+                m_DataFitted = (double[,])m_Out.ToArray();
 				//				MSurfaceImpedanceFitted = (double[])MeritCalcClass.DataFitted;
 				
 				for (int i=1;i<33;i++)
 				{
 					temp[1] = i;
-					TempMImagSurfaceImpedance[i-1] = (double)((Array)MeritCalcClass.DataFitted).GetValue(temp);
+                    TempMImagSurfaceImpedance[i - 1] = (double)m_DataFitted.GetValue(0, temp[1]);
 				}
 			}
 
@@ -696,33 +716,26 @@ namespace HONUS.Common_Class
 		
 		private void FillMeritCalc()
 		{
-			MeritCalcClass.c = C;
-			MeritCalcClass.HeatRatio = HeatRatio;
-			MeritCalcClass.Npr = Npr;
-			MeritCalcClass.ItaAir = ItaAir;
-			MeritCalcClass.P0 = P0;
-			MeritCalcClass.Densityo = Densityo;
+			
 
-			MeritCalcClass.Z0 = Z0;
-			MeritCalcClass.B = B;
 
-			MeritCalcClass.freq = freq;
-			MeritCalcClass.MAbsorption = TempMAbsorption;
-			MeritCalcClass.Frequency = TempFrequency;
+
+
+
+			
+
+			
+
+
 
 			//MeritCalcClass.BulkDensity = BulkDensity;  //INSUNG
-			MeritCalcClass.Thickness = Thickness;
-			MeritCalcClass.FlowRes = FResist;
-			MeritCalcClass.SFactor = SFactor;
-			MeritCalcClass.Porosity = Porosity;
-			MeritCalcClass.ViscousCL = ViscousCL;
-			MeritCalcClass.ThermalCL = ThermalCL;
 
-			MeritCalcClass.FlowResEst = FResistEst;
-			MeritCalcClass.SFactorEst = SFactorEst;
-			MeritCalcClass.PorosityEst = PorosityEst;
-			MeritCalcClass.ViscousCLEst = ViscousCLEst;
-			MeritCalcClass.ThermalCLEst = ThermalCLEst;
+
+
+
+			
+
+			
 
 		}
 
@@ -1184,8 +1197,13 @@ namespace HONUS.Common_Class
 			for (int ff=0;ff<SizeOfPEFre;ff++)
 			{
 				fre=(ff+1)*200;
-				MeritCalcClass.apfibrous5para(Thickness, FResistMat, tSFactor, tPorosity, tc1, tc2,fre);
-				APDAbsorption=(double[,])MeritCalcClass.APFibrous;
+				//MeritCalcClass.apfibrous5para(Thickness, FResistMat, tSFactor, tPorosity, tc1, tc2,fre);   //INSUNG				
+                m_Out = MeritCalcClass.APFibrous5para(B, tc1, tc2, m_Density1, Densityo, (MWNumericArray)FResistMat, fre, tPorosity, HeatRatio, ItaAir, Thickness, Npr, P0, tSFactor, Z0); //INSUNG
+                APDAbsorption = (double[,])m_Out.ToArray();
+                
+
+                
+				
 				
 				for (int i=0;i<RowSizeOfPara;i++)
 				{
@@ -1262,8 +1280,9 @@ namespace HONUS.Common_Class
 			for (int ff=0;ff<SizeOfPEFre;ff++)
 			{
 				fre=(ff+FreRegion[0])*200;
-				MeritCalcClass.apfibrous5para(Thickness, tFResist, SFactorMat, PorosityMat, tc1, tc2,fre);
-				APDAbsorption=(double[,])MeritCalcClass.APFibrous;
+				//MeritCalcClass.apfibrous5para(Thickness, tFResist, SFactorMat, PorosityMat, tc1, tc2,fre);  //INSUNG
+                m_Out = MeritCalcClass.APFibrous5para(B, tc1, tc2, m_Density1, Densityo, tFResist, fre, (MWNumericArray)PorosityMat, HeatRatio, ItaAir, Thickness, Npr, P0, (MWNumericArray)SFactorMat, Z0); //INSUNG
+                APDAbsorption = (double[,])m_Out.ToArray();
 				for (int i=0;i<RowSizeOfPara;i++)
 				{
 					for (int j=0; j<ColumSizeOfPara;j++)
@@ -1341,8 +1360,9 @@ namespace HONUS.Common_Class
 			{
 				fre=(ff+1)*200;
 
-				MeritCalcClass.apfibrous5para(Thickness, tFResist, tSFactor, tPorosity, c1Mat, c2Mat,fre);
-				APDAbsorption=(double[,])MeritCalcClass.APFibrous;
+				//MeritCalcClass.apfibrous5para(Thickness, tFResist, tSFactor, tPorosity, c1Mat, c2Mat,fre);  //INSUNG
+                m_Out = MeritCalcClass.APFibrous5para(B, (MWNumericArray)c1Mat, (MWNumericArray)c2Mat, m_Density1, Densityo, tFResist, fre, tPorosity, HeatRatio, ItaAir, Thickness, Npr, P0, tSFactor, Z0); //INSUNG
+                APDAbsorption = (double[,])m_Out.ToArray();
 
 				for (int i=0;i<RowSizeOfPara;i++)
 				{
@@ -1458,11 +1478,16 @@ namespace HONUS.Common_Class
 			for (int ff=(int)Freq1;ff<=(int)Freq2;ff++)
 			{
 				freq=TempFrequency[ff-1];
-				MeritCalcClass.meritcalc(freq, (double)TempMAbsorption[ff-1], 
-					BulkDensity, tFResist, tSFactor, tPorosity, tc1, tc2, Thickness);
-				MeritCalcClass.Desity1 = BulkDensity;//INSUNG
-				Merit=Merit+(double)(MeritCalcClass.Merit);
-				tempError=(double)(MeritCalcClass.Merit);
+				//MeritCalcClass.meritcalc(freq, (double)TempMAbsorption[ff-1],BulkDensity, tFResist, tSFactor, tPorosity, tc1, tc2, Thickness);//INSUNG
+				m_Out = MeritCalcClass.MeritCalc(BulkDensity,B,tc1,tc2,Densityo,tFResist,freq,tPorosity,HeatRatio,ItaAir,Thickness,(double)TempMAbsorption[ff-1],Npr,P0,tSFactor,Z0);//INSUNG
+                m_Merit = (double)m_Out.ToArray().GetValue(0, 0);
+                m_Absorption = (double)m_Out.ToArray().GetValue(0, 1);
+                m_RealSurfaceImpedance = (double)m_Out.ToArray().GetValue(0, 2);
+                m_ImagSurfaceImpedance = (double)m_Out.ToArray().GetValue(0, 3);
+				
+				m_Density1 = BulkDensity;//INSUNG
+				Merit=Merit+(double)(m_Merit);
+				tempError=(double)(m_Merit);
 				if(MaxError>tempError)
 				{
 					MaxError=tempError;
@@ -1503,14 +1528,18 @@ namespace HONUS.Common_Class
 			for (int ff=1;ff<=MaxFre;ff++)
 			{
 				freq=Frequency.GetData(ff);
-				MeritCalcClass.meritcalc(freq, (double)MAbsorption.GetData(ff), 
-					BulkDensity, FResist, SFactor, Porosity, c1, c2, Thickness);
-				MeritCalcClass.Desity1 = BulkDensity;//INSUNG
+				//MeritCalcClass.meritcalc(freq, (double)MAbsorption.GetData(ff),BulkDensity, FResist, SFactor, Porosity, c1, c2, Thickness);//INSUNG
+				m_Out = MeritCalcClass.MeritCalc(BulkDensity,B,c1,c2,Densityo,FResist,freq,Porosity,HeatRatio,ItaAir,Thickness,(double)MAbsorption.GetData(ff),Npr,P0,SFactor,Z0);//INSUNG
+                m_Merit = (double)m_Out.ToArray().GetValue(0, 0);
+                m_Absorption = (double)m_Out.ToArray().GetValue(0, 1);
+                m_RealSurfaceImpedance = (double)m_Out.ToArray().GetValue(0, 2);
+                m_ImagSurfaceImpedance = (double)m_Out.ToArray().GetValue(0, 3);
+				m_Density1 = BulkDensity;//INSUNG
 				
-				CAbsorption.AddData((double)MeritCalcClass.Absorption);
-				CRealSurfaceImpedance.AddData((double)MeritCalcClass.RealSurfaceImpedance);
-				CImagSurfaceImpedance.AddData((double)MeritCalcClass.ImagSurfaceImpedance);
-				Merit=Merit+(double)MeritCalcClass.Merit;
+				CAbsorption.AddData((double)m_Absorption);
+				CRealSurfaceImpedance.AddData((double)m_RealSurfaceImpedance);
+				CImagSurfaceImpedance.AddData((double)m_ImagSurfaceImpedance);
+				Merit=Merit+(double)m_Merit;
 			}
             
 
@@ -1538,14 +1567,21 @@ namespace HONUS.Common_Class
 			for (int ff=1;ff<=MaxFre;ff++)
 			{
 				freq=Frequency.GetData(ff);
-				MeritCalcClass.elasticmeritcalc(freq, (double)MAbsorption.GetData(ff), 
-					FResist, SFactor, Porosity, c1, c2, Ymodulus, LossFactor, PoissonR, Thickness);
+				//MeritCalcClass.elasticmeritcalc(freq, (double)MAbsorption.GetData(ff),FResist, SFactor, Porosity, c1, c2, Ymodulus, LossFactor, PoissonR, Thickness);  //INSUNG
+				m_Out = MeritCalcClass.ElasticMeritCalc(C,c1,c2,m_Density1,m_DensityA,Densityo,Ymodulus,FResist,freq,Porosity,HeatRatio,Thickness,LossFactor,(double)MAbsorption.GetData(ff),Npr,PoissonR,SFactor);  //INSUNG
+                m_Merit = (double)m_Out.ToArray().GetValue(0, 0);
+                m_Absorption = (double)m_Out.ToArray().GetValue(0, 1);
+                m_RealSurfaceImpedance = (double)m_Out.ToArray().GetValue(0, 2);
+                m_ImagSurfaceImpedance = (double)m_Out.ToArray().GetValue(0, 3);
 
-				CAbsorption.AddData((double)MeritCalcClass.Absorption);
-				CRealSurfaceImpedance.AddData((double)MeritCalcClass.RealSurfaceImpedance);
-				CImagSurfaceImpedance.AddData((double)MeritCalcClass.ImagSurfaceImpedance);
+                
+				
 
-				Merit=Merit+(double)MeritCalcClass.Merit;
+				CAbsorption.AddData((double)m_Absorption);
+				CRealSurfaceImpedance.AddData((double)m_RealSurfaceImpedance);
+				CImagSurfaceImpedance.AddData((double)m_ImagSurfaceImpedance);
+
+				Merit=Merit+(double)m_Merit;
 
 			}
 
@@ -1586,8 +1622,10 @@ namespace HONUS.Common_Class
 			}
 			ResonFreIndex=(int)Math.Round(ResonanceFrequency/Resolution);
 
-			MeritCalcClass.peelasticsolid(Thickness, BulkDensity, ResonanceFrequency);
-			OptSolidPara=(double[,])MeritCalcClass.SolidPara;
+			//MeritCalcClass.peelasticsolid(Thickness, BulkDensity, ResonanceFrequency);
+			m_Out = MeritCalcClass.PEElasticSolid(BulkDensity, Thickness, ResonanceFrequency); //INSUNG
+            OptSolidPara = (double[,])m_Out.ToArray();
+			
 			
 			Ymodulus=(double)OptSolidPara[1,1];
 			PoissonR=(double)OptSolidPara[1,3];
@@ -1599,10 +1637,15 @@ namespace HONUS.Common_Class
 				tLossFactor=i*0.01;
 				freq=ResonFreIndex*Resolution;
 							
-				MeritCalcClass.elasticmeritcalc(freq, (double)MAbsorption.GetData(ResonFreIndex), 
-				FResist, SFactor, Porosity, c1, c2, Ymodulus, tLossFactor, PoissonR, Thickness);
+				//MeritCalcClass.elasticmeritcalc(freq, (double)MAbsorption.GetData(ResonFreIndex),FResist, SFactor, Porosity, c1, c2, Ymodulus, tLossFactor, PoissonR, Thickness);  //INSUNG
+				m_Out = MeritCalcClass.ElasticMeritCalc(C,c1,c2,m_Density1,m_DensityA,Densityo,Ymodulus,FResist,freq,Porosity,HeatRatio,Thickness,tLossFactor,(double)MAbsorption.GetData(ResonFreIndex),Npr,PoissonR,SFactor);  //INSUNG
+                m_Merit = (double)m_Out.ToArray().GetValue(0, 0);
+                m_Absorption = (double)m_Out.ToArray().GetValue(0, 1);
+                m_RealSurfaceImpedance = (double)m_Out.ToArray().GetValue(0, 2);
+                m_ImagSurfaceImpedance = (double)m_Out.ToArray().GetValue(0, 3);
+
 				
-				Merit=(double)MeritCalcClass.Merit;
+				Merit=(double)m_Merit;
 						
 				if(Merit<Merittemp)
 				{
